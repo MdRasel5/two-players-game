@@ -12,6 +12,7 @@ let winScoreValue = document.getElementById("win-score-value");
 // Select Players Button
 let player1Btn = document.querySelector(".player1-btn");
 let player2Btn = document.querySelector(".player2-btn");
+let resetBtn = document.querySelector(".reset");
 
 // Select Reset Button
 let resetScore = document.getElementById("reset");
@@ -22,15 +23,19 @@ let player2 = parseInt(player2Score.innerHTML);
 
 let winScoreNum = parseInt(winScoreDisplay.innerHTML);
 
-// Increse Player 1 Value
-player1Btn.addEventListener('click', () => {
-    player1++;
-    player1Score.textContent = player1;
-
-    if (player1 === winScoreNum) {
+// Winner Function
+function winner(playerScore, winScoreNum) {
+    if (playerScore === winScoreNum) {
         player1Btn.setAttribute("disabled", "disabled");
         player2Btn.setAttribute("disabled", "disabled");
     }
+}
+
+// Increse Player 1 Value
+player1Btn.addEventListener('click', () => {
+    player1++;
+    winner(player1, winScoreNum);
+    player1Score.textContent = player1;
 })
 
 // Increase Player 2 Value
@@ -38,13 +43,19 @@ player2Btn.addEventListener('click', () => {
     player2++;
     player2Score.textContent = player2;
 
-    if (player2 === winScoreNum) {
-        player1Btn.setAttribute("disabled", "disabled");
-        player2Btn.setAttribute("disabled", "disabled");
-    }
+    winner(player2, winScoreNum);
 })
 
+// Reset All
+resetBtn.addEventListener('click', () => {
+    player1Score.textContent = 0;
+    player2Score.textContent = 0;
 
+    player1 = 0;
+    player2 = 0;
 
+    player1Btn.removeAttribute("disabled");
+    player2Btn.removeAttribute("disabled");
+})
 
 
